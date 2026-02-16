@@ -110,14 +110,32 @@ jobs:
           SQS_ENDPOINT: ${{ secrets.SQS_ENDPOINT }}
         run: envsubst < k8s/secrets.yaml | kubectl apply -f -
 
+      - name: Clean up stuck deployment
+        run: |
+          kubectl rollout undo deployment/os-service 2>/dev/null || true
+          kubectl rollout status deployment/os-service --timeout=60s 2>/dev/null || true
+
       - name: Deploy to Kubernetes
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           sed -i "s|image: os-service:latest|image: $ECR_REGISTRY/os-service:$IMAGE_TAG|" k8s/deployment.yaml
+          cat k8s/deployment.yaml
           kubectl apply -f k8s/configmap.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
           kubectl apply -f k8s/hpa.yaml
           kubectl rollout status deployment/os-service --timeout=300s
+
+      - name: Debug on failure
+        if: failure()
+        run: |
+          echo "=== Pod Status ==="
+          kubectl get pods -l app=os-service -o wide
+          echo "=== Pod Events ==="
+          kubectl describe pods -l app=os-service | grep -A 20 "Events:"
+          echo "=== Pod Logs ==="
+          kubectl logs -l app=os-service --tail=50 --all-containers=true 2>/dev/null || echo "No logs available"
+          echo "=== Deployment Status ==="
+          kubectl describe deployment os-service | tail -30
