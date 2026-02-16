@@ -31,6 +31,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    environment: production
     steps:
       - uses: actions/checkout@v4
 
@@ -60,6 +61,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    environment: production
     steps:
       - uses: actions/checkout@v4
 
@@ -73,8 +75,35 @@ jobs:
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
+      - name: Inject secrets into K8s manifests
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+          MONGO_DB: ${{ secrets.MONGO_DB }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+          EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SQS_OS_EVENTS_QUEUE_URL: ${{ secrets.SQS_OS_EVENTS_QUEUE_URL }}
+          SQS_BILLING_EVENTS_QUEUE_URL: ${{ secrets.SQS_BILLING_EVENTS_QUEUE_URL }}
+          SQS_EXECUTION_EVENTS_QUEUE_URL: ${{ secrets.SQS_EXECUTION_EVENTS_QUEUE_URL }}
+          SQS_ENDPOINT: ${{ secrets.SQS_ENDPOINT }}
+        run: envsubst < k8s/secrets.yaml | kubectl apply -f -
+
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/
-          kubectl set image deployment/os-service os-service=${{ steps.login-ecr.outputs.registry }}/os-service:${{ github.sha }}
+          kubectl apply -f k8s/configmap.yaml
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/hpa.yaml
+          kubectl set image deployment/os-service os-service=${{ secrets.ECR_REGISTRY }}/os-service:${{ github.sha }}
           kubectl rollout status deployment/os-service
