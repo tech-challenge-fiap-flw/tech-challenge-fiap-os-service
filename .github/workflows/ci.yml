@@ -82,6 +82,10 @@ jobs:
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       - name: Inject secrets into K8s manifests
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -107,10 +111,12 @@ jobs:
         run: envsubst < k8s/secrets.yaml | kubectl apply -f -
 
       - name: Deploy to Kubernetes
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           kubectl apply -f k8s/configmap.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
           kubectl apply -f k8s/hpa.yaml
-          kubectl set image deployment/os-service os-service=${{ secrets.ECR_REGISTRY }}/os-service:${{ github.sha }}
-          kubectl rollout status deployment/os-service
+          kubectl set image deployment/os-service os-service=$ECR_REGISTRY/os-service:${{ github.sha }}
+          kubectl rollout status deployment/os-service --timeout=300s
