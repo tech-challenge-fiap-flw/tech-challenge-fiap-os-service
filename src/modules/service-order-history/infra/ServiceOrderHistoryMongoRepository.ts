@@ -8,13 +8,12 @@ interface ServiceOrderHistoryDocument extends Omit<IServiceOrderHistoryProps, 'i
 }
 
 export class ServiceOrderHistoryMongoRepository implements IServiceOrderHistoryRepository {
-  private collectionPromise: Promise<Collection<ServiceOrderHistoryDocument>>;
-
-  constructor() {
-    this.collectionPromise = getCollection<ServiceOrderHistoryDocument>('service_order_history');
-  }
+  private collectionPromise: Promise<Collection<ServiceOrderHistoryDocument>> | null = null;
 
   private async collection() {
+    if (!this.collectionPromise) {
+      this.collectionPromise = getCollection<ServiceOrderHistoryDocument>('service_order_history');
+    }
     return this.collectionPromise;
   }
 

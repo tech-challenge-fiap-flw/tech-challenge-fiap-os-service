@@ -55,9 +55,11 @@ export class SqsConsumer {
             logger.error({ service: 'SqsConsumer', event: 'processing_error', error });
           }
         }
-      } catch (error) {
-        logger.error({ service: 'SqsConsumer', event: 'polling_error', error });
-        await new Promise(resolve => setTimeout(resolve, 5000));
+      } catch (error: any) {
+        const isAuthError = error?.name === 'InvalidClientTokenId' || error?.Code === 'InvalidClientTokenId';
+        const waitTime = isAuthError ? 30000 : 5000;
+        logger.error({ service: 'SqsConsumer', event: 'polling_error', error, retryInMs: waitTime });
+        await new Promise(resolve => setTimeout(resolve, waitTime));
       }
     }
   }
