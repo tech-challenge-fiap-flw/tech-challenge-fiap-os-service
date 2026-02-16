@@ -113,10 +113,11 @@ jobs:
       - name: Deploy to Kubernetes
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
+          sed -i "s|image: os-service:latest|image: $ECR_REGISTRY/os-service:$IMAGE_TAG|" k8s/deployment.yaml
           kubectl apply -f k8s/configmap.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
           kubectl apply -f k8s/hpa.yaml
-          kubectl set image deployment/os-service os-service=$ECR_REGISTRY/os-service:${{ github.sha }}
           kubectl rollout status deployment/os-service --timeout=300s
