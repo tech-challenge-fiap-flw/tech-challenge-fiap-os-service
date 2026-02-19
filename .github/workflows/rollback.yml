@@ -1,0 +1,68 @@
+name: OS Service Rollback
+
+description: 'Rollback workflow to revert to the previous deployment image in EKS.'
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to rollback (production/staging)'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - production
+          - staging
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      - name: Get current and previous image tags
+        id: get_tags
+        run: |
+          DEPLOYMENT=deployment/os-service
+          CURRENT_IMAGE=$(kubectl get $DEPLOYMENT -o jsonpath='{.spec.template.spec.containers[0].image}')
+          echo "Current image: $CURRENT_IMAGE"
+          REPO=$(echo $CURRENT_IMAGE | cut -d':' -f1)
+          CURRENT_TAG=$(echo $CURRENT_IMAGE | rev | cut -d':' -f1 | rev)
+          echo "Current tag: $CURRENT_TAG"
+          # List images in ECR, sort by push time, get previous tag
+          PREV_TAG=$(aws ecr list-images --repository-name os-service --region ${{ secrets.AWS_REGION }} --filter tagStatus=TAGGED --query 'imageIds[*].imageTag' --output text | tr '\t' '\n' | grep -v latest | grep -v $CURRENT_TAG | tail -2 | head -1)
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous image tag found. Rollback not possible."
+            exit 1
+          fi
+          echo "Previous tag: $PREV_TAG"
+          echo "PREV_IMAGE=$REPO:$PREV_TAG" >> $GITHUB_ENV
+
+      - name: Rollback deployment to previous image
+        run: |
+          kubectl set image deployment/os-service os-service=$PREV_IMAGE
+          kubectl rollout status deployment/os-service --timeout=300s
+
+      - name: Debug on failure
+        if: failure()
+        run: |
+          echo "=== Pod Status ==="
+          kubectl get pods -l app=os-service -o wide
+          echo "=== Pod Events ==="
+          kubectl describe pods -l app=os-service | grep -A 20 "Events:"
+          echo "=== Pod Logs ==="
+          kubectl logs -l app=os-service --tail=50 --all-containers=true 2>/dev/null || echo "No logs available"
+          echo "=== Deployment Status ==="
+          kubectl describe deployment os-service | tail -30

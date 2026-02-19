@@ -109,6 +109,17 @@ npm start
 - `POST /service-order-history` — Registrar mudança de status (admin)
 - `GET /service-order-history/:idServiceOrder` — Listar histórico (admin)
 
+## Testes Unitários
+
+O projeto possui uma suíte completa de testes unitários cobrindo domínios, serviços, controllers, middlewares, schemas e repositórios.
+
+```bash
+# Rodar testes com cobertura
+npx jest --coverage
+```
+
+![Resultado dos Testes Unitários](teste-unitario.png)
+
 ## Deploy (Kubernetes)
 
 ```bash
