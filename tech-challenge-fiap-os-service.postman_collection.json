@@ -1,0 +1,1108 @@
+{
+  "info": {
+    "_postman_id": "6883b8b9-41dd-4786-94ea-6dabdcfcecf4",
+    "name": "tech-challenge-fiap-os-service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17743052"
+  },
+  "item": [
+    {
+      "name": "Diagnosis",
+      "item": [
+        {
+          "name": "[Diagnosis, POST] Criar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"description\": \"Teste Etapa 4 diagnosis\",\r\n    \"vehicleId\": 12\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/diagnosis",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "diagnosis"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Diagnosis, GET] By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/diagnosis/10",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "diagnosis",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Diagnosis, GET] List",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/diagnosis",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "diagnosis"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Diagnosis, DELETE] Deletar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/diagnosis/10",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "diagnosis",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Diagnosis, PUT] Atualizar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 11,\r\n    \"description\": \"ALTERADO Criando uma novo diagnostico\",\r\n    \"creationDate\": \"2025-10-09T23:16:43.000Z\",\r\n    \"vehicleId\": 6,\r\n    \"responsibleMechanicId\": null,\r\n    \"deletedAt\": \"2025-10-09T23:34:48.000Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/diagnosis/16",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "diagnosis",
+                "16"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Service Order",
+      "item": [
+        {
+          "name": "[Service-order, POST] Criar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"description\": \"Teste Etapa 3 ordem de serviço\",\r\n    \"vehicleId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{path}}/service-orders",
+              "host": [
+                "{{path}}"
+              ],
+              "path": [
+                "service-orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, POST] Accept",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"accept\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{path}}/service-orders/2/accept",
+              "host": [
+                "{{path}}"
+              ],
+              "path": [
+                "service-orders",
+                "2",
+                "accept"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, GET] Execution time",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/45/execution-time",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "45",
+                "execution-time"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, GET] By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/56",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "56"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, DELETE] Deletar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/32",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "32"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, POST] Assign Budget",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"description\": \"teste de criar orçamente e adicionar a Ordem de Servico\",\r\n    \"vehicleParts\": [\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/2/budget",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "2",
+                "budget"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, POST] Aprovar Orçamento Cliente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"accept\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/2/accept-budget",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "2",
+                "accept-budget"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, POST] Start",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/2/start",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "2",
+                "start"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, POST] Finish",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/2/finish",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "2",
+                "finish"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, POST] Delivered",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/2/delivered",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "2",
+                "delivered"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Service-orders, GET] Execution time average",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/service-orders/execution-time/average",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-orders",
+                "execution-time",
+                "average"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Service Order History",
+      "item": [
+        {
+          "name": "[Service-order-history, POST] Criar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idServiceOrder\": 1,\r\n    \"userId\": 1,\r\n    \"newStatus\": \"Recebida\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/service-order-history",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "service-order-history"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "[Users, POST] Criar Usuário",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Teste apresentação\",\r\n    \"email\": \"teste@gmail.com\",\r\n    \"password\": \"teste1234\",\r\n    \"type\": \"admin\",\r\n    \"phone\": \"11941851715\",\r\n    \"cpf\": \"21417006048\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{path}}/users",
+              "host": [
+                "{{path}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[User, PUT] Atualizar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"teste\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/users",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[User, DELETE] Deletar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE3LCJlbWFpbCI6InVzZXItYWRtaW4tdGVjaC1jaGFsbGVuZ2VAZ21haWwuY29tIiwidHlwZSI6ImFkbWluIiwiY3BmIjoiNDE1NDIyMDE4NzAiLCJuYW1lIjoiVXNlciBBZG1pbiIsImlhdCI6MTc2NzkxMjY1MiwiZXhwIjoxNzY3OTE2MjUyfQ.ThuOqyP1JLaQUPYSD-sU9Gxe32p9gdlUej6gl9kqpVk",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/users",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[User, GET] By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/users/1",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[User, GET] Paginacao",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/users",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Auth, GET] Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/users/me",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "The `/me` endpoints let you manage information about the authenticated user."
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        {
+          "name": "[Vehicle, POST] Criar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idPlate\": \"EZH3H14\",\r\n    \"brand\": \"Mitsubishi\",\r\n    \"model\": \"ASX\",\r\n    \"type\": \"car\",\r\n    \"manufactureYear\": 2011,\r\n    \"modelYear\": 2011,\r\n    \"color\": \"black\",\r\n    \"ownerId\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{path}}/vehicles",
+              "host": [
+                "{{path}}"
+              ],
+              "path": [
+                "vehicles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Vehicle, GET] All",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{path}}/vehicles",
+              "host": [
+                "{{path}}"
+              ],
+              "path": [
+                "vehicles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Vehicle, GET] By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/vehicles/95",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "vehicles",
+                "95"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Vehicle, PUT] Alterar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"type\": \"CAR ALTERADO\",\r\n    \"model\": \"Tesla M\",\r\n    \"brand\": \"tesla company\",\r\n    \"manufactureYear\": 1993,\r\n    \"modelYear\": 1993,\r\n    \"color\": \"white\",\r\n    \"ownerId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/vehicles/6",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "vehicles",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Vehicle, DELETE] Deletar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{path}}:3000/vehicles/6",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "vehicles",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[Diagnoses, POST] Criar",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInR5cGUiOiJhZG1pbiIsImlhdCI6MTc1OTkzODkzMiwiZXhwIjoxNzYwMDI1MzMyfQ.giIun_wK_enuLnyhZXndU_mq77FLYjS2jGkeTVC_FuM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"description\": \"Diagnóstico de teste\",\r\n    \"vehicleId\": 1,\r\n    \"responsibleMechanicId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{path}}:3000/diagnoses",
+              "protocol": "http",
+              "host": [
+                "{{path}}"
+              ],
+              "port": "3000",
+              "path": [
+                "diagnoses"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth with Lambda",
+      "item": [
+        {
+          "name": "[Auth, POST] Lambda Auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Acessa o objeto JSON da resposta\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "console.log('teste')\r",
+                  "\r",
+                  "// Nome da propriedade onde o token está (AJUSTE CONFORME SUA API)\r",
+                  "const tokenPropertyName = 'token'; \r",
+                  "\r",
+                  "if (response && response[tokenPropertyName]) {\r",
+                  "    const token = response[tokenPropertyName];\r",
+                  "    \r",
+                  "    // **SALVA O TOKEN NA VARIÁVEL GLOBAL**\r",
+                  "    // Variáveis globais são ideais para tokens, pois funcionam em todas as coleções.\r",
+                  "    pm.globals.set(\"auth_token\", token);\r",
+                  "    \r",
+                  "    // Opcional: Para verificar se deu certo\r",
+                  "    console.log(\"Token salvo com sucesso:\", token);\r",
+                  "\r",
+                  "    // Opcional: Se sua API também retorna o tempo de expiração (exp), salve-o.\r",
+                  "    // Exemplo: pm.globals.set(\"token_expiry_time\", Date.now() + (response.expires_in * 1000));\r",
+                  "    \r",
+                  "} else {\r",
+                  "    // Falha no login ou formato de resposta inesperado\r",
+                  "    console.log(\"Falha ao encontrar o token na resposta.\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log('teste')"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n \"cpf\": \"21417006048\",\r\n \"password\": \"teste1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{path-auth}}/auth",
+              "host": [
+                "{{path-auth}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
