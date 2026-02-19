@@ -18,6 +18,7 @@ export async function getMongo(mongoUri?: string, mongoDb?: string): Promise<Db>
     serverSelectionTimeoutMS: 5000,
     tls: true,
     tlsAllowInvalidCertificates: true,
+    authMechanism: 'SCRAM-SHA-1',
   };
   if (fs.existsSync(caPath)) {
     options.tlsCAFile = caPath;
