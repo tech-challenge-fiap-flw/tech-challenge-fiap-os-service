@@ -21,16 +21,10 @@ export async function getMongo(mongoUri?: string, mongoDb?: string): Promise<Db>
     options.tls = true;
     options.tlsCAFile = caPath;
   }
-  try {
-    client = new MongoClient(uri, options);
-    await client.connect();
-    db = client.db(mongoDbName);
-    return db;
-  } catch (error) {
-    client = null;
-    db = null;
-    throw error;
-  }
+  client = new MongoClient(uri, options);
+  await client.connect();
+  db = client.db(mongoDbName);
+  return db;
 }
 
 export async function getCollection<TSchema extends Document = Document>(name: string, mongoUri?: string, mongoDb?: string): Promise<Collection<TSchema>> {
