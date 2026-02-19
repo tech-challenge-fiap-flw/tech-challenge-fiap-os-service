@@ -16,10 +16,14 @@ export async function getMongo(mongoUri?: string, mongoDb?: string): Promise<Db>
   let options: any = {
     maxPoolSize: 10,
     serverSelectionTimeoutMS: 5000,
+    tls: true,
+    tlsAllowInvalidCertificates: true,
   };
   if (fs.existsSync(caPath)) {
-    options.tls = true;
     options.tlsCAFile = caPath;
+    console.info('[Mongo] Usando CA bundle para TLS:', caPath);
+  } else {
+    console.warn('[Mongo] CA bundle não encontrado, usando TLS com certificados inválidos permitidos.');
   }
   client = new MongoClient(uri, options);
   await client.connect();
