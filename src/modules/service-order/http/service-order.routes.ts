@@ -41,8 +41,8 @@ const emailService = new NodemailerEmailService();
 const serviceOrderRepoForHistory = new ServiceOrderMySqlRepository();
 const historyService = new ServiceOrderHistoryService(historyRepository, emailService, serviceOrderRepoForHistory, userRepository);
 
-const sqsPublisher = process.env.SQS_QUEUE_URL
-  ? new SqsPublisher(process.env.SQS_QUEUE_URL)
+const sqsPublisher = process.env.SQS_BILLING_EVENTS_QUEUE_URL
+  ? new SqsPublisher(process.env.SQS_BILLING_EVENTS_QUEUE_URL)
   : undefined;
 
 const repository = new ServiceOrderMySqlRepository();
