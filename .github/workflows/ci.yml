@@ -110,11 +110,6 @@ jobs:
           SQS_ENDPOINT: ${{ secrets.SQS_ENDPOINT }}
         run: envsubst < k8s/secrets.yaml | kubectl apply -f -
 
-      - name: Clean up stuck deployment
-        run: |
-          kubectl rollout undo deployment/os-service 2>/dev/null || true
-          kubectl rollout status deployment/os-service --timeout=60s 2>/dev/null || true
-
       - name: Deploy to Kubernetes
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
